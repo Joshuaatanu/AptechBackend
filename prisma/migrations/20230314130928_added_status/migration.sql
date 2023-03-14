@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `application` ADD COLUMN `status` ENUM('PENDING', 'APPROVED', 'DECLINED') NOT NULL DEFAULT 'PENDING';

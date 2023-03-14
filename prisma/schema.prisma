@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+
+enum Status{
+  PENDING
+  APPROVED
+  DECLINED
+}
+
+model User {
+  id Int @id @default(autoincrement())
+
+  firstName String
+  lastName  String
+
+  applicationId Int
+  application   Application @relation(fields: [applicationId], references: [id])
+}
+
+enum Course {
+  JAVA
+  JAVANETWORKING
+  JAVAJAVA
+  DOTNET
+  DOTNETNETWORKING
+  GRAPHICS
+}
+
+model Application {
+  id Int @id @default(autoincrement())
+
+  firstName  String
+  lastName   String
+  middleName String
+
+  email       String @unique
+  address     String
+  phoneNumber BigInt
+
+  guardianFirstName   String
+  guardianLastName    String
+  guardianMiddleName  String
+  guardianEmail       String
+  guardianPhoneNumber BigInt
+
+  course            Course
+  applicationNumber Int
+
+  status Status @default(PENDING)
+
+  users User[]
+}
